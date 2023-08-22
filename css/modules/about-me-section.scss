@@ -1,0 +1,130 @@
+.about {
+
+    @include atMedium  {
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+    }
+
+/****************************** HEADERS *************************/
+
+    &-header {
+        padding: 5rem 0;
+
+        & h2 {
+            font-size: 4rem;
+        }
+    }
+
+/********************************** SKILLS SECTION *************************/
+
+    &-skills {
+        background-color: #ffffff;
+        padding: 3rem 3rem;
+
+        @include atMedium   {
+            grid-column: 1 / 6; 
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            padding-bottom: 10rem;  
+        }
+
+        &-grid {
+            grid-column: 1 / 6;
+
+            @include atMedium   {
+                grid-column: 1 / 6;  
+            }
+
+            @include atXLarge  {
+                grid-column: 3 / 6;  
+            }
+
+            &-bar {
+                padding-bottom: 3rem;
+            }
+        }
+
+        &-bar-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 1.5rem;
+
+            & .value {
+                color: rgb(90, 90, 90);
+                font-size: 14px;
+            }
+        }
+
+        &-de-progress-bar {
+            display: block;
+            background: rgba(1, 1, 1, .1);
+            height: 4px;
+            border-radius: 10px;
+
+            & .about-skills-progress-bar {
+                background: linear-gradient(to right, #ff4242 0%,#63d5ef 100%);
+            } 
+        }
+        
+        &-progress-bar {
+            
+            height: 100%;
+            // background-size: cover;
+            border-radius: 10px;
+        }
+    }
+
+/*********************************** ABOUT ME SECTION ************************/
+
+    &-me {
+        background-color: rgb(212, 212, 212);
+        padding: 3rem 2rem 10rem;
+
+        @include atMedium   {
+            grid-column: 6 / 13;
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);  
+        }
+
+        &-grid {
+            grid-column: 1 / 4;
+            grid-gap: 2rem;
+        }
+
+        &-btn {
+            padding-top: 4rem;
+        }
+    }
+}
+
+
+//*************************************** SKILL BARS
+
+#htBar {
+    width: 0%;
+    height: 5px; 
+    border-radius: 15px;
+    font-size: 4px;
+    background-color: #00FFFF;
+    text-align: right;
+    color: #000000;
+    animation: animateskillbar1 1s 2s cubic-bezier(1,0,0.5,1) forwards;
+  }
+  
+  @keyframes animateskillbar1{
+    0%{
+      width: 0%;
+    }
+    100%{
+      width: 0%;
+    }
+  }
+  @keyframes animateskillbar11{
+    0%{
+      width: 0%;
+    }
+    100%{
+      width: 90%;
+    }
+  }
