@@ -1,27 +1,26 @@
 .footer {
-    background-color: #222;
-    text-align: center;
-    justify-content: space-between;
-    padding: 3vh 10vw;
-    align-items: center;
+  text-align: center;
+  justify-content: space-between;
+  padding: 3vh 10vw;
+  align-items: center;
 
-    @include atSmall {
-        display: flex;
-        direction: rtl;
+  @include atSmall {
+    display: flex;
+    direction: rtl;
+  }
+
+  &-social-icon {
+    font-size: 40px;
+    color: gray;
+    transition: all 0.3s ease-in-out;
+
+    &:hover {
+      color: #6e5494;
     }
+  }
 
-    &-social-icon {
-        font-size: 40px;
-        color: gray;
-        transition: all .3s ease-in-out;
-
-        &:hover {
-            color: #6e5494;
-        }
-    }
-
-    &-copyright {
-        margin: 0;
-        color: gray;
-    }
+  &-copyright {
+    margin: 0;
+    color: gray;
+  }
 }

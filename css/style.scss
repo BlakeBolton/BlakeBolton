@@ -2,6 +2,7 @@
 @import "normalize.css";
 
 /* SASS and Global'ish Stuff */
+@import "base/background-pattern";
 @import "base/variables";
 @import "base/mixins";
 @import "base/base";
@@ -13,8 +14,8 @@
 @import "modules/contact-section";
 @import "modules/cursor";
 @import "modules/experience-section";
+@import "modules/hero";
 @import "modules/main-navigation";
-@import "modules/parallax";
 @import "modules/portfolio-section";
 @import "modules/reveal-item";
 @import "modules/services-section";
@@ -22,4 +23,3 @@
 @import "modules/site-header";
 @import "modules/splide-carousel";
 @import "modules/testimonials-section";
-

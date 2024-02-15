@@ -17,6 +17,7 @@ function blakebolton_files() {
 
     // Google font
     wp_enqueue_style('googlefont', 'https://fonts.googleapis.com/css2?family=Nunito&display=swap', array(), '1.0.0' );
+    wp_enqueue_style('googlefont', 'https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500&display=swap', array(), '1.0.0' );
 
     // SPLIDE
     wp_enqueue_style('splide-css', get_theme_file_uri() . '/css/splide.min.css', array(), '2.4.20' );
@@ -57,25 +58,65 @@ function blakebolton_setup() {
 }
 add_action('after_setup_theme', 'blakebolton_setup'); // When the theme is activated and ready!
 
-/** Displays the Hero image on background of the front-page **/
-function blakebolton_hero_image() {
-    $front_page_id = get_option('page_on_front');
-    $image_id = get_field('hero_image', $front_page_id);
+/** CONTACT FORM FUNCTION */
+function submit_contact_form() {
+    session_start();
+    if ( ! isset( $_POST['contact_form_nonce'] ) || ! wp_verify_nonce( $_POST['contact_form_nonce'], 'submit_contact_form' ) ) {
+        wp_die( 'Sorry, your nonce did not verify.' );
+    }
 
-    $image = $image_id['url'];
+    $name = sanitize_text_field( $_POST['name'] );
+    $email = sanitize_email( $_POST['email'] );
+    $message = sanitize_textarea_field( $_POST['message'] );
 
-    // Create a "FALSE" stylesheet
-    wp_register_style('custom', false);
-    wp_enqueue_style('custom');
+    $errors = array();
 
-    $featured_image_css = "
-        body.home .site-header__large-hero {
-            background-image: linear-gradient( rgba(0,0,0, 0.40), rgba(0,0,0, 0.40) ), url( $image );
-            background-repeat: no-repeat;
-            background-position: center;
-            background-size: cover;  
+    if ( empty( $name ) ) {
+        $errors[] = "Name is required";
+    }
+
+    if ( empty( $email ) ) {
+        $errors[] = "Email is required";
+    } elseif ( ! filter_var( $email, FILTER_VALIDATE_EMAIL ) ) {
+        $errors[] = "Invalid email format";
+    }
+
+    if ( empty( $message ) ) {
+        $errors[] = "Message is required";
+    }
+
+    if (empty($errors)) {
+        $to = "bbolton8607@gmail.com";
+        $subject = "New Contact Form Submission";
+        $body = "Name: $name\nEmail: $email\nMessage: $message";
+
+        mail($to, $subject, $body);
+
+        $_SESSION['status'] = 'Thank you! Your form has been submitted!';
+        header("Location: /");
+        exit;
+    } else {
+        foreach ($errors as $error) {
+            echo "$error<br>";
         }
-    ";
-    wp_add_inline_style('custom', $featured_image_css);
+    }
 }
-add_action('init', 'blakebolton_hero_image');
+add_action( 'admin_post_nopriv_submit_contact_form', 'submit_contact_form' );
+add_action( 'admin_post_submit_contact_form', 'submit_contact_form' );
+
+/** SECTION HEADER FUNCTION */
+
+function section_header($title) {
+    $title_array = explode(" ", $title);
+
+    $all_but_last = array_slice($title_array, 0, -1);
+    $first_element = implode(' ', $all_but_last);
+
+    $last_index = count($title_array) - 1;
+    $last_element = $title_array[$last_index];
+
+    $output = "<span>" . $first_element . "</span><span class=\"primary-red\"> " . $last_element . "</span>";
+
+    echo $output;
+}
+
